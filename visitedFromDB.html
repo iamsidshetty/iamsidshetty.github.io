@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        
+        <script type="text/javascript">
+            google.charts.load('current', {packages: ['geochart']});
+            google.charts.setOnLoadCallback(initialize);
+            
+            function initialize(){
+                var opts = {sendMethod: 'auto'};
+        
+                var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1LlTk2IT8Z4i0Mesch_L45kzo9gV0VYq53w3U-yZSfkc/edit?usp=sharing', opts);
+        
+//                query.setQuery('select A, select B');
+                
+                query.send(drawChart);
+        
+            }
+
+            function drawChart(response){
+                
+                if(response.isError()){
+                    alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                    return;
+                }
+                var data = response.getDataTable();
+                        
+                var options = {
+                    'width' : 650,
+                    'height' : 500,
+                    'region': 'US',
+                    'resolution': 'provinces',
+//                    'colorAxis': {colors: ['#f4f4f4', '#1c6ced']},
+                    'colorAxis': {colors: ['#f4f4f4', '#1c6ced', '#0342a8']},
+                    'backgroundColor' :'#ffffff',
+                    'displayMode' : ['regions', 'text']
+                };
+
+                var chart = new google.visualization.GeoChart(document.getElementById('regions'));
+
+                chart.draw(data, options);
+
+            }
+        </script>    
+    </head>
+    <body>
+        <div id="regions">Updated on 12/24/2016</div>
+    </body>
+
+</html>

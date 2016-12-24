@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages' : ['timeline']});
+            google.charts.setOnLoadCallback(drawTimeline);
+            
+            function drawTimeline(){
+                var chart = new google.visualization.Timeline(document.getElementById('life'));
+                
+                var currentDate = new Date()
+                var day = currentDate.getDate()
+                var month = currentDate.getMonth() + 1
+                var year = currentDate.getFullYear()
+                
+                var data = new google.visualization.DataTable();
+                data.addColumn({ type: 'string', id: 'id' });
+                data.addColumn({ type: 'string', id: 'Milestone' });
+                data.addColumn({ type: 'date', id: 'Start' });
+                data.addColumn({ type: 'date', id: 'End' });
+                data.addRows([
+                    ['1', 'LIVED IN INDIA', new Date(1990, 7, 20), new Date(2012, 12, 8)],
+                    ['1', 'LIVING IN USA', new Date(2012, 12, 8), currentDate],
+                    ['2','PRE KG', new Date(1994, 5, 1), new Date(1997, 4, 1)],
+                    ['3','PRIMARY SCHOOL (1 to 7)', new Date(1997, 5, 2), new Date(2003, 4, 1)],
+                    ['4','HIGH SCHOOL (8 to 10)', new Date(2003, 5, 2), new Date(2006, 4, 1)],
+                    ['5','11th & 12th', new Date(2006, 5, 2), new Date(2008, 4, 1)],
+                    ['6','UNDERGRADUATE (BE)', new Date(2008, 8, 4), new Date(2012, 5, 10)],
+                    ['7','GRADUATE (MS)', new Date(2012, 12, 16), new Date(2015, 4, 16)],
+                    ['8','1st INTERNSHIP @ DISNEY', new Date(2013, 12, 4), new Date(2014, 7, 10)],
+                    ['9','2nd INTERNSHIP @ TRANSAMERICA', new Date(2015, 1, 2), new Date(2015, 4, 10)],
+                    ['10','WORK @ VISA INC.', new Date(2015, 5, 29), currentDate],
+                    ['11','Leo (My Lab) Comes home', new Date(2016, 10, 19), currentDate]
+                ]);
+                
+                var options = {
+                      /*timeline: { showRowLabels: false,  groupByRowLabel: false}, 
+                    colors: ['#f4f4f4', '#1c6ced', '#0342a8'],*/
+                    timeline: { showRowLabels: false, barLabelStyle: { fontName: 'tempus sans itc', fontSize: 14 } }
+                    };
+                
+                chart.draw(data, options);
+                
+            }
+        </script>
+    </head>
+    <body>
+        <div id="life" style="height: 580px;"></div>
+    </body>
+
+</html>
