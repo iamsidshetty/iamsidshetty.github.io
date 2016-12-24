@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+                google.charts.load('current', { 'packages' : ['bar']});
+                google.charts.setOnLoadCallback(drawTDStats);
+                
+                function drawTDStats(){
+                    
+                    var opts = {sendMethod: 'auto'};
+                    
+                    var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1GUp2dxwNk4ZsHmDelA3_01hA5WH8IoLYXVIXT-WDT-8/edit?usp=sharing', opts);
+                    
+                    query.send(drawChart);
+                    
+                    
+                }
+                
+                function drawChart(response){
+                    
+                    if(response.isError()){
+                        alert('Error in query: ' + esponse.getMessage() + ' ' + response.getDetailedMessage());
+                        return;
+                    }
+                    
+                    var data = response.getDataTable();
+                    
+                    var options = {
+                        'width' : 900,
+                        'height' : 500,
+                        chart: {
+                            title: 'Tim Duncan (San Antonio Spurs) Career Stats',
+                            subtitle: 'Total Points, Rebounds & Assists from 1997-2015'
+                            
+                        },
+                        bars: 'vertical'
+                    };
+                    
+                    var chart = new google.charts.Bar(document.getElementById('tdStats'));
+                    
+                    chart.draw(data, options);
+                    
+                }
+            </script>
+    </head>
+    <body>
+<!--        <div id="tdStats" style="width: 100%; height: 700px;"></div>-->
+        <div id="tdStats" align="center"></div>
+    </body>
+
+</html>
