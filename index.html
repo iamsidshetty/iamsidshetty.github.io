@@ -74,11 +74,44 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, var(--teal-light), var(--blue-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--teal-light);
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
         nav ul {
             list-style: none;
             display: flex;
             justify-content: center;
             gap: 2rem;
+            margin: 0;
         }
 
         nav a {
@@ -437,9 +470,33 @@
                 font-size: 1.2rem;
             }
 
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-logo {
+                display: block;
+            }
+
             nav ul {
+                position: fixed;
+                left: -100%;
+                top: 60px;
                 flex-direction: column;
-                gap: 1rem;
+                background: rgba(15, 23, 42, 0.98);
+                width: 100%;
+                text-align: center;
+                transition: left 0.3s;
+                gap: 0;
+                padding: 2rem 0;
+            }
+
+            nav ul.active {
+                left: 0;
+            }
+
+            nav ul li {
+                padding: 1rem 0;
             }
 
             .section-title {
@@ -468,13 +525,21 @@
     <div class="animated-bg"></div>
 
     <nav>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
+        <div class="nav-container">
+            <div class="nav-logo">SS</div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul id="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
     </nav>
 
     <section id="home" class="hero">
@@ -540,7 +605,7 @@
             </div>
 
             <div class="experience-card fade-in">
-                <h3 class="experience-title">Lead Solution Architect</h3>
+                <h3 class="experience-title">Lead Solutions Architect</h3>
                 <p class="experience-period">VISA Inc. | June 2019 - April 2021</p>
             </div>
 
@@ -625,9 +690,19 @@
     </footer>
 
     <script>
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
+                navMenu.classList.remove('active');
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
